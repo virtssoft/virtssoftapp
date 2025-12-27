@@ -1,16 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingBag, User, Menu, X, Linkedin, Youtube, Facebook, Instagram, ChevronDown, Globe } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { ShoppingBag, User, Menu, X, Linkedin, Youtube, Facebook, Instagram, ChevronDown, Globe, Search } from 'lucide-react';
 
-// Custom X (formerly Twitter) Icon SVG
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
   </svg>
 );
 
-// Custom Abstract Logo SVG
 const AbstractLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M50 85C69.33 85 85 69.33 85 50C85 30.67 69.33 15 50 15C30.67 15 15 30.67 15 50C15 69.33 30.67 85 50 85Z" stroke="currentColor" strokeWidth="4" />
@@ -22,9 +20,7 @@ const AbstractLogo = ({ className }: { className?: string }) => (
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -34,51 +30,52 @@ const Header = () => {
 
   const navLinks = [
     { name: 'A propos', path: '/about' },
-    { name: 'news', path: '/blog' },
-    { name: 'support', path: '/support' },
-    { name: 'voir+ >', path: '/services' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Services', path: '/services' },
+    { name: 'Support', path: '/support' },
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass py-1' : 'bg-transparent py-4'}`}>
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <Link to="/" className="text-white hover:opacity-70 transition-opacity flex-shrink-0">
-          <AbstractLogo className="w-8 h-8 md:w-10 md:h-10" />
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass py-2' : 'bg-transparent py-6'}`}>
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        {/* LOGO - Left aligned */}
+        <Link to="/" className="flex items-center space-x-2 group">
+          <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-transform" />
+          <span className="hidden lg:block text-lg font-medium tracking-tight text-white">Virtssoft</span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 absolute left-1/2 -translate-x-1/2">
+        {/* NAVIGATION - Centered */}
+        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm lg:text-base font-light tracking-tight transition-all duration-300 ${
-                location.pathname === link.path ? 'text-white' : 'text-gray-300 hover:text-white'
+              className={`text-sm font-light tracking-wide transition-all duration-300 relative group ${
+                location.pathname === link.path ? 'text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
               {link.name}
+              <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`} />
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center space-x-3 md:space-x-5">
-          <Link to="/store" className="relative group" title="Store">
-            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg border border-white/5 hover:bg-white/5 hover:border-white/20 transition-all">
-              <ShoppingBag size={20} strokeWidth={1.5} className="text-gray-200 group-hover:text-white" />
-            </div>
+        {/* ACTIONS - Right aligned */}
+        <div className="flex items-center space-x-4 md:space-x-6">
+          <button className="hidden sm:block text-gray-400 hover:text-white transition-colors">
+            <Search size={20} strokeWidth={1.5} />
+          </button>
+          
+          <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors" title="Store">
+            <ShoppingBag size={21} strokeWidth={1.5} />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full scale-0 group-hover:scale-100 transition-transform" />
           </Link>
 
-          <Link 
-            to="/account" 
-            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-gray-600 hover:border-white transition-all group overflow-hidden"
-          >
-            {isLoggedIn ? (
-              <img src="https://i.pravatar.cc/150?img=1" alt="Profile" className="w-full h-full object-cover" />
-            ) : (
-              <User size={20} strokeWidth={1.5} className="text-gray-200 group-hover:text-white" />
-            )}
+          <Link to="/account" className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 hover:border-white/40 hover:bg-white/5 transition-all text-gray-400 hover:text-white">
+            <User size={18} strokeWidth={1.5} />
           </Link>
 
-          <button className="md:hidden p-2 text-white" onClick={() => setIsMenuOpen(true)}>
+          <button className="md:hidden p-1 text-white" onClick={() => setIsMenuOpen(true)}>
             <Menu size={24} />
           </button>
         </div>
@@ -86,19 +83,28 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div className={`fixed inset-0 z-[60] transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setIsMenuOpen(false)} />
-        <div className={`absolute inset-0 bg-black transition-all duration-500 flex flex-col p-6 ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-          <div className="flex justify-between items-center mb-10">
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={() => setIsMenuOpen(false)} />
+        <div className={`absolute right-0 top-0 h-full w-[80%] max-w-sm bg-[#0a0a0a] transition-all duration-500 p-8 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="flex justify-between items-center mb-12">
             <AbstractLogo className="w-10 h-10 text-white" />
-            <button onClick={() => setIsMenuOpen(false)} className="text-white">
-              <X size={32} />
+            <button onClick={() => setIsMenuOpen(false)} className="text-white p-2 hover:bg-white/5 rounded-full transition-colors">
+              <X size={28} />
             </button>
           </div>
-          <nav className="flex flex-col space-y-6">
+          <nav className="flex flex-col space-y-8">
             {navLinks.map((link) => (
-              <Link key={link.path} to={link.path} onClick={() => setIsMenuOpen(false)} className="text-3xl font-extralight tracking-tight">{link.name}</Link>
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                onClick={() => setIsMenuOpen(false)} 
+                className="text-2xl font-light tracking-tight hover:text-blue-400 transition-colors"
+              >
+                {link.name}
+              </Link>
             ))}
-            <Link to="/store" onClick={() => setIsMenuOpen(false)} className="text-3xl font-extralight tracking-tight">Store</Link>
+            <div className="h-px bg-white/10 my-4" />
+            <Link to="/store" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white">Boutique</Link>
+            <Link to="/account" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white">Mon Compte</Link>
           </nav>
         </div>
       </div>
@@ -108,11 +114,9 @@ const Header = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#020202] text-[#86868b] pt-16 md:pt-20">
+    <footer className="bg-[#020202] text-[#86868b] pt-16 md:pt-20 border-t border-white/5">
       <div className="container mx-auto px-6">
-        {/* Three Column Structure from Screenshots */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 mb-16">
-          {/* Column 1: Identity */}
           <div className="space-y-8">
             <div className="space-y-2">
               <h4 className="text-white text-3xl font-light tracking-tight">virtssoft<br />technologies Inc,</h4>
@@ -126,29 +130,26 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Nos Stores */}
           <div className="space-y-6">
             <h4 className="text-white text-lg font-bold tracking-tight">Nos stores</h4>
             <ul className="space-y-2 text-base font-light">
-              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt;Goma</span></Link></li>
-              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt;Bukavu</span></Link></li>
-              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt;Kinshasa</span></Link></li>
-              <li><Link to="/store" className="flex items-center hover:text-white transition-colors font-medium"><span>&gt;voir plus...</span></Link></li>
+              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt; Goma</span></Link></li>
+              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt; Bukavu</span></Link></li>
+              <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt; Kinshasa</span></Link></li>
+              <li><Link to="/store" className="flex items-center hover:text-white transition-colors font-medium"><span>&gt; voir plus...</span></Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Nos Services */}
           <div className="space-y-6">
             <h4 className="text-white text-lg font-bold tracking-tight">Nos services</h4>
             <ul className="space-y-2 text-base font-light">
-              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt;Produit IOT</span></Link></li>
-              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt;Énergies</span></Link></li>
-              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt;ia</span></Link></li>
+              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt; Produit IOT</span></Link></li>
+              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt; Énergies</span></Link></li>
+              <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt; IA & Automatisation</span></Link></li>
             </ul>
           </div>
         </div>
 
-        {/* Legal Part (bottom border and requested fields) */}
         <div className="border-t border-white/10 pt-8 pb-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
             <div className="flex flex-col items-center md:items-start space-y-4">
@@ -163,7 +164,7 @@ const Footer = () => {
             </div>
 
             <div className="flex items-center space-x-2 text-xs font-medium cursor-pointer group hover:text-white transition-colors">
-              <Globe size={14} className="group-hover:text-blue-500" />
+              <Globe size={14} className="group-hover:text-blue-500 transition-colors" />
               <span>Congo DR <span className="text-gray-500 font-normal ml-1">(Français FR)</span></span>
               <ChevronDown size={14} className="ml-1 group-hover:translate-y-0.5 transition-transform" />
             </div>
