@@ -2,7 +2,7 @@
 {
   "name": "virtssoft-app",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.7.0",
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
@@ -14,7 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "0.22.0",
+    "@google/genai": "^0.21.0",
     "lucide-react": "^0.471.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
