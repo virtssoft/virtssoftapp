@@ -38,19 +38,22 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass py-2' : 'bg-transparent py-6'}`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* LOGO - Left aligned */}
-        <Link to="/" className="flex items-center space-x-2 group">
-          <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-transform" />
-          <span className="hidden lg:block text-lg font-medium tracking-tight text-white">Virtssoft</span>
-        </Link>
+        
+        {/* 1. LOGO (Gauche) */}
+        <div className="flex-1 flex justify-start">
+          <Link to="/" className="flex items-center space-x-2 group">
+            <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-transform" />
+            <span className="hidden lg:block text-lg font-medium tracking-tight text-white uppercase italic">Virtssoft</span>
+          </Link>
+        </div>
 
-        {/* NAVIGATION - Centered */}
-        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
+        {/* 2. NAVIGATION CENTRALE (Centre) */}
+        <nav className="hidden md:flex items-center justify-center space-x-8 lg:space-x-12 flex-[2]">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm font-light tracking-wide transition-all duration-300 relative group ${
+              className={`text-[13px] uppercase font-light tracking-[0.15em] transition-all duration-300 relative group ${
                 location.pathname === link.path ? 'text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -60,19 +63,21 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* ACTIONS - Right aligned */}
-        <div className="flex items-center space-x-4 md:space-x-6">
-          <button className="hidden sm:block text-gray-400 hover:text-white transition-colors">
-            <Search size={20} strokeWidth={1.5} />
+        {/* 3. ACTIONS DROITE (Droite) */}
+        <div className="flex-1 flex items-center justify-end space-x-5 md:space-x-8">
+          <button className="hidden sm:block text-gray-400 hover:text-white transition-colors" title="Recherche">
+            <Search size={18} strokeWidth={1.5} />
           </button>
           
           <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors" title="Store">
-            <ShoppingBag size={21} strokeWidth={1.5} />
+            <ShoppingBag size={20} strokeWidth={1.5} />
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full scale-0 group-hover:scale-100 transition-transform" />
           </Link>
 
-          <Link to="/account" className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 hover:border-white/40 hover:bg-white/5 transition-all text-gray-400 hover:text-white">
-            <User size={18} strokeWidth={1.5} />
+          <Link to="/account" className="flex items-center space-x-2 group text-gray-400 hover:text-white transition-all" title="Compte">
+            <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 group-hover:border-white/40 group-hover:bg-white/5 transition-all">
+              <User size={18} strokeWidth={1.5} />
+            </div>
           </Link>
 
           <button className="md:hidden p-1 text-white" onClick={() => setIsMenuOpen(true)}>
@@ -81,30 +86,36 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-[60] transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" onClick={() => setIsMenuOpen(false)} />
-        <div className={`absolute right-0 top-0 h-full w-[80%] max-w-sm bg-[#0a0a0a] transition-all duration-500 p-8 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="flex justify-between items-center mb-12">
+        <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" onClick={() => setIsMenuOpen(false)} />
+        <div className={`absolute right-0 top-0 h-full w-[85%] max-w-sm bg-[#0a0a0a] transition-all duration-500 p-10 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="flex justify-between items-center mb-16">
             <AbstractLogo className="w-10 h-10 text-white" />
             <button onClick={() => setIsMenuOpen(false)} className="text-white p-2 hover:bg-white/5 rounded-full transition-colors">
-              <X size={28} />
+              <X size={32} strokeWidth={1.5} />
             </button>
           </div>
-          <nav className="flex flex-col space-y-8">
+          <nav className="flex flex-col space-y-10">
             {navLinks.map((link) => (
               <Link 
                 key={link.path} 
                 to={link.path} 
                 onClick={() => setIsMenuOpen(false)} 
-                className="text-2xl font-light tracking-tight hover:text-blue-400 transition-colors"
+                className="text-3xl font-extralight tracking-tight hover:text-blue-400 transition-colors"
               >
                 {link.name}
               </Link>
             ))}
-            <div className="h-px bg-white/10 my-4" />
-            <Link to="/store" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white">Boutique</Link>
-            <Link to="/account" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white">Mon Compte</Link>
+            <div className="h-px bg-white/10 my-6" />
+            <Link to="/store" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white flex items-center justify-between">
+              <span>Boutique</span>
+              <ShoppingBag size={20} />
+            </Link>
+            <Link to="/account" onClick={() => setIsMenuOpen(false)} className="text-xl font-light text-gray-400 hover:text-white flex items-center justify-between">
+              <span>Mon Compte</span>
+              <User size={20} />
+            </Link>
           </nav>
         </div>
       </div>
@@ -124,14 +135,14 @@ const Footer = () => {
             <div className="space-y-6 text-sm md:text-base font-light">
               <p>139, Mutongo avenue<br />Mabanga-sud, GOMA, RDC</p>
               <div className="space-y-1">
-                <p><span className="font-bold">Phone:</span> +243 849 296 155</p>
-                <p><span className="font-bold">Mail:</span> contactvti@virtssoft.com</p>
+                <p><span className="font-bold text-gray-400">Phone:</span> +243 849 296 155</p>
+                <p><span className="font-bold text-gray-400">Mail:</span> contactvti@virtssoft.com</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-6">
-            <h4 className="text-white text-lg font-bold tracking-tight">Nos stores</h4>
+            <h4 className="text-white text-lg font-bold tracking-tight uppercase text-xs opacity-50">Nos stores</h4>
             <ul className="space-y-2 text-base font-light">
               <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt; Goma</span></Link></li>
               <li><Link to="/store" className="flex items-center hover:text-white transition-colors"><span>&gt; Bukavu</span></Link></li>
@@ -141,7 +152,7 @@ const Footer = () => {
           </div>
 
           <div className="space-y-6">
-            <h4 className="text-white text-lg font-bold tracking-tight">Nos services</h4>
+            <h4 className="text-white text-lg font-bold tracking-tight uppercase text-xs opacity-50">Nos services</h4>
             <ul className="space-y-2 text-base font-light">
               <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt; Produit IOT</span></Link></li>
               <li><Link to="/services" className="flex items-center hover:text-white transition-colors"><span>&gt; Énergies</span></Link></li>
