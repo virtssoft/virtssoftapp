@@ -5,7 +5,6 @@ import { ChevronRight, Play, Activity, Zap, Users, ArrowLeft, ArrowRight, Shoppi
 import { Link } from 'react-router-dom';
 import { Product } from '../types';
 
-// Custom Cloud-like Logo Icon for Veido products
 const VeidoLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.5 19C15.0147 19 13 16.9853 13 14.5C13 12.0147 15.0147 10 17.5 10C18.1068 10 18.6823 10.1215 19.2057 10.3414C19.102 9.07185 18.0536 8.075 16.7647 8.075C16.4801 8.075 16.2081 8.12573 15.9575 8.21832C15.1189 6.8166 13.5939 5.875 11.8382 5.875C9.37367 5.875 7.3308 7.68535 6.94539 10.046C6.6433 9.93282 6.31633 9.87109 5.97414 9.87109C4.33157 9.87109 3 11.2027 3 12.8452C3 13.2985 3.10123 13.7282 3.28255 14.1118C2.49033 14.7352 2 15.6966 2 16.7742C2 18.7303 3.5855 20.3158 5.54167 20.3158H17.5C19.433 20.3158 21 18.7488 21 16.8158C21 14.8828 19.433 13.3158 17.5 13.3158V19Z" fill="#2b759a" />
@@ -16,15 +15,12 @@ const Home: React.FC = () => {
   const [activeService, setActiveService] = useState(SERVICES[0]);
   const [currentPhareIndex, setCurrentPhareIndex] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
-  // Track active product per category for the stacked layout
   const [activeProducts, setActiveProducts] = useState<Record<string, string>>({
     'objets connectés': 'v1',
     'énergies renouvelables': 'e1'
   });
 
   const productCategories = ['objets connectés', 'énergies renouvelables'];
-
   const phareServices = SERVICES.filter(s => s.isPhare);
 
   const nextSlide = useCallback(() => {
@@ -46,38 +42,49 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-0">
-      {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#0a0a0a]">
-        <div className="absolute inset-0 z-0">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-20">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-network-loops-27530-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#010510]/90 via-[#010510]/60 to-[#0a0a0a]" />
+      {/* HERO SECTION WITH YOUTUBE BG */}
+      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black">
+        {/* YouTube Background Container */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <iframe
+            className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 opacity-40 scale-110"
+            src="https://www.youtube.com/embed/flIDVvABfms?autoplay=1&mute=1&loop=1&playlist=flIDVvABfms&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
+            allow="autoplay; encrypted-media"
+            frameBorder="0"
+          ></iframe>
+          {/* Gradients to blend the video */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
         </div>
 
-        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-40 md:pt-32">
-          <div className="w-full relative min-h-[70vh] md:h-[50vh]">
+        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-48 md:pt-32">
+          <div className="w-full relative min-h-[60vh] md:h-[50vh]">
             {phareServices.map((phare, index) => (
               <div 
                 key={phare.id}
-                className={`absolute inset-0 transition-all duration-[1000ms] ease-in-out flex flex-col md:flex-row items-center gap-10 md:gap-20 ${
-                  index === currentPhareIndex ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-10 pointer-events-none'
+                className={`absolute inset-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col md:flex-row items-center gap-10 md:gap-20 ${
+                  index === currentPhareIndex ? 'opacity-100 translate-y-0 pointer-events-auto scale-100' : 'opacity-0 translate-y-12 pointer-events-none scale-95'
                 }`}
               >
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <div className="relative w-full max-w-[320px] md:max-w-none aspect-square md:aspect-video animate-[float_6s_ease-in-out_infinite]">
-                    <img src={phare.image} alt={phare.name} className="w-full h-full object-cover rounded-3xl md:rounded-[40px] shadow-2xl border border-white/10" />
+                  <div className="relative w-full max-w-[340px] md:max-w-none aspect-square md:aspect-video animate-[float_8s_ease-in-out_infinite]">
+                    <div className="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full opacity-50" />
+                    <img src={phare.image} alt={phare.name} className="relative z-10 w-full h-full object-cover rounded-3xl md:rounded-[48px] shadow-2xl border border-white/10" />
                   </div>
                 </div>
-                <div className="w-full md:w-1/2 text-center md:text-left space-y-4 md:space-y-6">
-                  <div className="space-y-2">
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-extralight tracking-tight leading-tight text-white">{phare.name}</h1>
-                    <div className="h-0.5 w-12 bg-blue-500 mx-auto md:mx-0" />
+                <div className="w-full md:w-1/2 text-center md:text-left space-y-6 md:space-y-8">
+                  <div className="space-y-3">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-[1.1] text-white">
+                      {phare.name}
+                    </h1>
+                    <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto md:mx-0 rounded-full" />
                   </div>
-                  <p className="text-sm md:text-lg lg:text-xl text-gray-400 font-light max-w-xl mx-auto md:mx-0 leading-relaxed">{phare.shortDescription}</p>
-                  <div className="pt-4 md:pt-6">
-                    <Link to={`/service/${phare.id}`} className="inline-block px-8 md:px-10 py-3 md:py-4 bg-white text-black rounded-full font-bold tracking-widest uppercase text-[10px] hover:bg-blue-500 hover:text-white transition-all duration-500">
-                      En savoir plus
+                  <p className="text-base md:text-xl lg:text-2xl text-gray-300/90 font-light max-w-xl mx-auto md:mx-0 leading-relaxed tracking-wide">
+                    {phare.shortDescription}
+                  </p>
+                  <div className="pt-6 md:pt-8">
+                    <Link to={`/service/${phare.id}`} className="inline-block px-10 md:px-12 py-4 md:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] uppercase text-[11px] hover:bg-blue-500 hover:text-white transition-all duration-500 shadow-xl hover:shadow-blue-500/20">
+                      Découvrir l'innovation
                     </Link>
                   </div>
                 </div>
@@ -86,21 +93,33 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="container mx-auto px-6 z-10 pb-16 flex flex-col items-center space-y-8">
-          <div className="flex items-center space-x-12">
-            <button onClick={prevSlide} className="p-2 text-white/30 hover:text-white transition-colors"><ArrowLeft size={24} strokeWidth={1} /></button>
-            <div className="flex space-x-4">
+        {/* Hero Bottom Controls */}
+        <div className="container mx-auto px-6 z-10 pb-16 flex flex-col items-center space-y-10">
+          <div className="flex items-center space-x-16">
+            <button onClick={prevSlide} className="p-3 text-white/20 hover:text-white transition-all transform hover:scale-110" aria-label="Précédent">
+              <ArrowLeft size={28} strokeWidth={1} />
+            </button>
+            <div className="flex space-x-5">
               {phareServices.map((_, i) => (
-                <button key={i} onClick={() => setCurrentPhareIndex(i)} className={`h-1.5 transition-all duration-500 rounded-full ${i === currentPhareIndex ? 'w-14 bg-blue-500' : 'w-4 bg-white/20 hover:bg-white/40'}`} />
+                <button 
+                  key={i} 
+                  onClick={() => setCurrentPhareIndex(i)} 
+                  className={`h-1 transition-all duration-700 rounded-full ${i === currentPhareIndex ? 'w-16 bg-blue-500' : 'w-4 bg-white/20 hover:bg-white/40'}`} 
+                  aria-label={`Go to slide ${i + 1}`}
+                />
               ))}
             </div>
-            <button onClick={nextSlide} className="p-2 text-white/30 hover:text-white transition-colors"><ArrowRight size={24} strokeWidth={1} /></button>
+            <button onClick={nextSlide} className="p-3 text-white/20 hover:text-white transition-all transform hover:scale-110" aria-label="Suivant">
+              <ArrowRight size={28} strokeWidth={1} />
+            </button>
           </div>
-          <div className="text-[10px] uppercase tracking-[0.6em] text-gray-600 font-bold opacity-80">Innovons Ensemble, Inspirons l’Avenir</div>
+          <div className="text-[10px] uppercase tracking-[0.8em] text-gray-500 font-bold opacity-60 animate-pulse">
+            Innovons Ensemble, Inspirons l’Avenir
+          </div>
         </div>
       </section>
 
-      {/* 🧩 SECTION PRODUITS — REPRODUCING USER DESIGN */}
+      {/* 🧩 SECTION PRODUITS */}
       <section className="bg-white text-black">
         {productCategories.map((category, catIdx) => {
           const catProds = PRODUCTS.filter(p => p.category === category);
@@ -110,13 +129,10 @@ const Home: React.FC = () => {
           return (
             <div key={category} className={`py-12 md:py-20 ${catIdx % 2 !== 0 ? 'bg-[#f5f5f7]' : 'bg-white'}`}>
               <div className="container mx-auto px-6 flex flex-col items-center">
-                
-                {/* Category Title */}
                 <h2 className="text-2xl md:text-4xl font-black text-center mb-6 uppercase tracking-tighter">
                   {category}
                 </h2>
 
-                {/* Product Horizontal Nav */}
                 <div className="flex justify-center space-x-6 md:space-x-12 mb-10 md:mb-16">
                   {catProds.map((p) => (
                     <button
@@ -131,10 +147,7 @@ const Home: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Main Showcase Grid */}
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-                  
-                  {/* Left: Content */}
                   <div className="space-y-6 text-center md:text-left">
                     <div className="flex flex-col items-center md:items-start space-y-2">
                       <div className="flex items-center space-x-3">
@@ -164,13 +177,10 @@ const Home: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Right: Angled Layered Images */}
                   <div className="relative h-[250px] md:h-[400px] w-full flex justify-center items-center">
-                    {/* Background angled image */}
                     <div className="absolute transform translate-x-10 translate-y--2 rotate-[15deg] opacity-30 grayscale scale-95 transition-all duration-1000">
                       <img src={activeProd.image} alt="" className="h-[200px] md:h-[320px] object-contain drop-shadow-xl" />
                     </div>
-                    {/* Foreground angled image */}
                     <div className="relative transform rotate-[15deg] transition-all duration-700 hover:scale-105">
                       <img 
                         src={activeProd.image} 
@@ -181,7 +191,6 @@ const Home: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Pagination Bars */}
                 <div className="mt-12 md:mt-16 flex justify-center items-center space-x-3 md:space-x-6">
                   {catProds.map((p) => (
                     <button 
@@ -193,7 +202,6 @@ const Home: React.FC = () => {
                       aria-label={`Product ${p.name}`}
                     />
                   ))}
-                  {/* Optional play/pause icon placeholder */}
                   <div className="pl-3">
                     <div className="flex space-x-1">
                       <div className="w-0.5 h-3 bg-gray-400" />
@@ -212,7 +220,6 @@ const Home: React.FC = () => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedProduct(null)} />
           <div className="relative w-full max-w-2xl bg-black text-white rounded-[2rem] overflow-hidden flex flex-col items-center animate-fadeIn shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/5">
-            {/* Close Button */}
             <button 
               onClick={() => setSelectedProduct(null)} 
               className="absolute top-6 right-6 text-red-600 hover:scale-110 transition-transform z-20"
@@ -220,14 +227,12 @@ const Home: React.FC = () => {
               <X size={40} strokeWidth={3} />
             </button>
 
-            {/* Modal Header */}
             <div className="w-full pt-10 text-center">
               <h3 className="text-3xl md:text-5xl font-light text-gray-300 tracking-tight">
                 {selectedProduct.name.replace('veido', 'veido-on')} vtx
               </h3>
             </div>
 
-            {/* Modal Body: Angled Image with "IOT" Background */}
             <div className="relative flex items-center justify-center py-10 w-full overflow-hidden">
               <span className="absolute text-[15rem] font-black text-white/5 tracking-tighter select-none pointer-events-none">IOT</span>
               <img 
@@ -237,7 +242,6 @@ const Home: React.FC = () => {
               />
             </div>
 
-            {/* Modal Actions */}
             <div className="w-full px-8 pb-10 flex flex-col items-center space-y-8">
               <button className="px-16 py-4 bg-[#3a7da1] text-white rounded-full text-2xl font-bold tracking-tight hover:bg-[#2b607d] transition-all shadow-xl active:scale-95">
                 Acheter
