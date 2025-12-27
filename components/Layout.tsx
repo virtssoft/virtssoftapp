@@ -36,10 +36,10 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass py-2' : 'bg-transparent py-6'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass py-3' : 'bg-transparent py-6'}`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
         
-        {/* 1. LOGO (Gauche) */}
+        {/* LOGO (Gauche) */}
         <div className="flex-1 flex justify-start">
           <Link to="/" className="flex items-center space-x-2 group">
             <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-transform" />
@@ -47,13 +47,13 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* 2. NAVIGATION CENTRALE (Centre) */}
-        <nav className="hidden md:flex items-center justify-center space-x-8 lg:space-x-12 flex-[2]">
+        {/* NAVIGATION CENTRALE (Milieu) */}
+        <nav className="hidden md:flex items-center justify-center space-x-8 lg:space-x-10 flex-[2]">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[13px] uppercase font-light tracking-[0.15em] transition-all duration-300 relative group ${
+              className={`text-[13px] uppercase font-light tracking-[0.2em] transition-all duration-300 relative group ${
                 location.pathname === link.path ? 'text-white' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -63,18 +63,14 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* 3. ACTIONS DROITE (Droite) */}
+        {/* ACTIONS DROITE (Droite) */}
         <div className="flex-1 flex items-center justify-end space-x-5 md:space-x-8">
-          <button className="hidden sm:block text-gray-400 hover:text-white transition-colors" title="Recherche">
-            <Search size={18} strokeWidth={1.5} />
-          </button>
-          
-          <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors" title="Store">
+          <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors" title="Boutique">
             <ShoppingBag size={20} strokeWidth={1.5} />
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full scale-0 group-hover:scale-100 transition-transform" />
           </Link>
 
-          <Link to="/account" className="flex items-center space-x-2 group text-gray-400 hover:text-white transition-all" title="Compte">
+          <Link to="/account" className="flex items-center group text-gray-400 hover:text-white transition-all" title="Mon Compte">
             <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 group-hover:border-white/40 group-hover:bg-white/5 transition-all">
               <User size={18} strokeWidth={1.5} />
             </div>
@@ -88,7 +84,7 @@ const Header = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-[60] transition-all duration-500 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" onClick={() => setIsMenuOpen(false)} />
+        <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={() => setIsMenuOpen(false)} />
         <div className={`absolute right-0 top-0 h-full w-[85%] max-w-sm bg-[#0a0a0a] transition-all duration-500 p-10 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex justify-between items-center mb-16">
             <AbstractLogo className="w-10 h-10 text-white" />
