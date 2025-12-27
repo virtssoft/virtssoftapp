@@ -1,0 +1,8 @@
+{
+  "name": "Virtssoft Technologies site",
+  "description": "An Apple-inspired, minimalist, and high-performance web platform for Virtssoft Technologies, featuring an integrated OneAccount system, Store, and comprehensive services portal.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
