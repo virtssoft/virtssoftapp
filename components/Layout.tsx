@@ -39,7 +39,7 @@ const Header = () => {
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${isScrolled ? 'glass py-3' : 'bg-transparent py-7'}`}>
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         
-        {/* [ LOGO ] (Gauche) */}
+        {/* [ LOGO ] - Zone Gauche (Un tiers de la largeur) */}
         <div className="flex-1 flex justify-start items-center">
           <Link to="/" className="flex items-center space-x-3 group">
             <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:scale-110 transition-transform duration-500" />
@@ -49,8 +49,8 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* [ NAV CENTRALE ] (Milieu) */}
-        <nav className="hidden md:flex items-center justify-center space-x-12 flex-[3]">
+        {/* [ NAVIGATION ] - Zone Centrale (Un tiers de la largeur, centré) */}
+        <nav className="hidden md:flex flex-1 items-center justify-center space-x-12">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -65,18 +65,18 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* [ ACTIONS ] (Droite) */}
+        {/* [ ACTIONS ] - Zone Droite (Un tiers de la largeur, aligné à droite) */}
         <div className="flex-1 flex items-center justify-end space-x-6 md:space-x-8">
           <button className="hidden sm:block text-gray-400 hover:text-white transition-colors duration-300" title="Recherche">
             <Search size={18} strokeWidth={1.5} />
           </button>
           
-          <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors duration-300" title="Boutique">
+          <Link to="/store" className="relative group text-gray-400 hover:text-white transition-colors duration-300" title="Store">
             <ShoppingBag size={20} strokeWidth={1.5} />
             <span className="absolute -top-1.5 -right-1.5 w-2 h-2 bg-blue-500 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
           </Link>
 
-          <Link to="/account" className="flex items-center group text-gray-400 hover:text-white transition-all duration-300" title="Mon Compte">
+          <Link to="/account" className="flex items-center group text-gray-400 hover:text-white transition-all duration-300" title="Compte">
             <div className="w-9 h-9 flex items-center justify-center rounded-full border border-white/10 group-hover:border-white/40 group-hover:bg-white/5 transition-all">
               <User size={18} strokeWidth={1.5} />
             </div>
