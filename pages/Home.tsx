@@ -64,8 +64,8 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-10">
-          <div className="w-full relative min-h-[50vh] md:h-[40vh]">
+        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-10 pb-20 md:pb-0">
+          <div className="w-full relative min-h-[55vh] md:h-[40vh]">
             {phareServices.map((phare, index) => (
               <div 
                 key={phare.id}
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
                 }`}
               >
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <div className="relative w-full max-w-[300px] md:max-w-[480px] aspect-video animate-[float_8s_ease-in-out_infinite]">
+                  <div className="relative w-full max-w-[280px] md:max-w-[480px] aspect-video animate-[float_8s_ease-in-out_infinite]">
                     <div className="absolute -inset-8 bg-blue-500/20 blur-[80px] rounded-full opacity-50" />
                     <img src={phare.image} alt={phare.name} className="relative z-10 w-full h-full object-cover rounded-2xl md:rounded-[32px] shadow-2xl border border-white/10" />
                   </div>
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
                     </h1>
                     <div className="h-1 w-20 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mx-auto md:mx-0 rounded-full" />
                   </div>
-                  <p className="text-base md:text-lg lg:text-xl text-white/80 font-light max-w-lg mx-auto md:mx-0 leading-relaxed tracking-tight">
+                  <p className="text-sm md:text-lg lg:text-xl text-white/80 font-light max-w-lg mx-auto md:mx-0 leading-relaxed tracking-tight">
                     {phare.shortDescription}
                   </p>
                   <div className="pt-4 md:pt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Hero Bottom Navigation & Branding */}
-        <div className="container mx-auto px-6 z-10 pb-10 flex flex-col items-center space-y-6">
+        <div className="container mx-auto px-6 z-10 pb-8 md:pb-10 flex flex-col items-center space-y-6">
           <div className="flex items-center space-x-10">
             <button onClick={prevSlide} className="p-2 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Précédent">
               <ArrowLeft size={28} strokeWidth={1} />

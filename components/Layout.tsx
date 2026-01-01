@@ -36,7 +36,13 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 ease-in-out ${isScrolled ? 'glass py-3' : 'bg-transparent py-7'}`}>
+    <header 
+      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${
+        isScrolled 
+          ? 'bg-black/95 md:bg-black/80 backdrop-blur-2xl py-3 border-b border-white/10 shadow-lg' 
+          : 'bg-transparent py-7'
+      }`}
+    >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         
         {/* [ LOGO ] */}
