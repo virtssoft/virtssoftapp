@@ -51,52 +51,51 @@ const Home: React.FC = () => {
               className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 opacity-60 scale-110"
               style={{
                 width: '100vw',
-                height: '56.25vw', /* 100/16*9 */
+                height: '56.25vw',
                 minHeight: '100vh',
-                minWidth: '177.77vh', /* 100/9*16 */
+                minWidth: '177.77vh',
               }}
               src="https://www.youtube.com/embed/flIDVvABfms?autoplay=1&mute=1&loop=1&playlist=flIDVvABfms&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&enablejsapi=1"
               allow="autoplay; encrypted-media"
               frameBorder="0"
             ></iframe>
-            {/* Elegant Radial Overlay for Depth */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-40" />
           </div>
         </div>
 
-        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-20">
-          <div className="w-full relative min-h-[60vh] md:h-[50vh]">
+        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-10">
+          <div className="w-full relative min-h-[50vh] md:h-[40vh]">
             {phareServices.map((phare, index) => (
               <div 
                 key={phare.id}
-                className={`absolute inset-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col md:flex-row items-center gap-10 md:gap-20 ${
-                  index === currentPhareIndex ? 'opacity-100 translate-y-0 pointer-events-auto scale-100' : 'opacity-0 translate-y-12 pointer-events-none scale-95'
+                className={`absolute inset-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col md:flex-row items-center gap-8 md:gap-16 ${
+                  index === currentPhareIndex ? 'opacity-100 translate-y-0 pointer-events-auto scale-100' : 'opacity-0 translate-y-8 pointer-events-none scale-95'
                 }`}
               >
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <div className="relative w-full max-w-[340px] md:max-w-none aspect-square md:aspect-video animate-[float_8s_ease-in-out_infinite]">
-                    <div className="absolute -inset-10 bg-blue-500/30 blur-[100px] rounded-full opacity-60" />
-                    <img src={phare.image} alt={phare.name} className="relative z-10 w-full h-full object-cover rounded-3xl md:rounded-[48px] shadow-2xl border border-white/10" />
+                  <div className="relative w-full max-w-[300px] md:max-w-[480px] aspect-video animate-[float_8s_ease-in-out_infinite]">
+                    <div className="absolute -inset-8 bg-blue-500/20 blur-[80px] rounded-full opacity-50" />
+                    <img src={phare.image} alt={phare.name} className="relative z-10 w-full h-full object-cover rounded-2xl md:rounded-[32px] shadow-2xl border border-white/10" />
                   </div>
                 </div>
-                <div className="w-full md:w-1/2 text-center md:text-left space-y-6 md:space-y-8">
-                  <div className="space-y-3">
-                    <h1 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1.1] text-white">
+                <div className="w-full md:w-1/2 text-center md:text-left space-y-4 md:space-y-6">
+                  <div className="space-y-2">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1] text-white">
                       {phare.name}
                     </h1>
-                    <div className="h-1.5 w-24 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mx-auto md:mx-0 rounded-full" />
+                    <div className="h-1 w-20 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mx-auto md:mx-0 rounded-full" />
                   </div>
-                  <p className="text-lg md:text-xl lg:text-3xl text-white/80 font-light max-w-xl mx-auto md:mx-0 leading-relaxed tracking-tight">
+                  <p className="text-base md:text-lg lg:text-xl text-white/80 font-light max-w-lg mx-auto md:mx-0 leading-relaxed tracking-tight">
                     {phare.shortDescription}
                   </p>
-                  <div className="pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-                    <Link to={`/service/${phare.id}`} className="inline-block px-10 py-5 bg-white text-black rounded-full font-bold tracking-tight text-sm hover:scale-105 transition-all duration-300 shadow-xl">
+                  <div className="pt-4 md:pt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                    <Link to={`/service/${phare.id}`} className="inline-block px-8 py-4 bg-white text-black rounded-full font-bold tracking-tight text-xs hover:scale-105 transition-all duration-300 shadow-xl">
                       Découvrir l'innovation
                     </Link>
                     <button className="flex items-center space-x-2 text-white/60 hover:text-white transition-colors group">
-                      <Play size={18} className="fill-white/20 group-hover:fill-white" />
-                      <span className="text-xs font-bold uppercase tracking-widest">Voir la démo</span>
+                      <Play size={16} className="fill-white/20 group-hover:fill-white" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">Voir la démo</span>
                     </button>
                   </div>
                 </div>
@@ -106,32 +105,32 @@ const Home: React.FC = () => {
         </div>
 
         {/* Hero Bottom Navigation & Branding */}
-        <div className="container mx-auto px-6 z-10 pb-12 flex flex-col items-center space-y-8">
-          <div className="flex items-center space-x-12">
-            <button onClick={prevSlide} className="p-4 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Précédent">
-              <ArrowLeft size={32} strokeWidth={1} />
+        <div className="container mx-auto px-6 z-10 pb-10 flex flex-col items-center space-y-6">
+          <div className="flex items-center space-x-10">
+            <button onClick={prevSlide} className="p-2 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Précédent">
+              <ArrowLeft size={28} strokeWidth={1} />
             </button>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {phareServices.map((_, i) => (
                 <button 
                   key={i} 
                   onClick={() => setCurrentPhareIndex(i)} 
-                  className={`h-1 transition-all duration-1000 rounded-full ${i === currentPhareIndex ? 'w-24 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]' : 'w-4 bg-white/10 hover:bg-white/30'}`} 
+                  className={`h-1 transition-all duration-1000 rounded-full ${i === currentPhareIndex ? 'w-16 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.6)]' : 'w-4 bg-white/10 hover:bg-white/30'}`} 
                   aria-label={`Slide ${i + 1}`}
                 />
               ))}
             </div>
-            <button onClick={nextSlide} className="p-4 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Suivant">
-              <ArrowRight size={32} strokeWidth={1} />
+            <button onClick={nextSlide} className="p-2 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Suivant">
+              <ArrowRight size={28} strokeWidth={1} />
             </button>
           </div>
-          <div className="text-[11px] uppercase tracking-[1em] text-white/40 font-black animate-pulse">
+          <div className="text-[10px] uppercase tracking-[0.8em] text-white/40 font-black animate-pulse">
             Virtssoft technologies
           </div>
         </div>
       </section>
 
-      {/* 🧩 SECTION PRODUITS - GARDÉ TEL QUEL */}
+      {/* 🧩 SECTION PRODUITS */}
       <section className="bg-white text-black">
         {productCategories.map((category, catIdx) => {
           const catProds = PRODUCTS.filter(p => p.category === category);
@@ -227,7 +226,7 @@ const Home: React.FC = () => {
         })}
       </section>
 
-      {/* PRODUCT MODAL - GARDÉ TEL QUEL */}
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedProduct(null)} />
@@ -273,7 +272,7 @@ const Home: React.FC = () => {
         </div>
       )}
 
-      {/* REST OF THE SECTIONS - GARDÉ TEL QUEL */}
+      {/* QUI SOMMES NOUS */}
       <section className="container mx-auto px-6 py-32">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           <div className="relative group">
@@ -413,7 +412,7 @@ const Home: React.FC = () => {
       <style>{`
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
