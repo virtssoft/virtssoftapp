@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+// Use namespace import to resolve missing exported member error for useParams
+import * as ReactRouterDOM from 'react-router-dom';
+const { useParams } = ReactRouterDOM as any;
 import { PRODUCTS } from '../constants';
 import { Play, Pause } from 'lucide-react';
 

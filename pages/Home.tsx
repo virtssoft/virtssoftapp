@@ -2,7 +2,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SERVICES, BLOG_POSTS, PRODUCTS } from '../constants';
 import { ChevronRight, Play, Activity, Zap, Users, ArrowLeft, ArrowRight, ShoppingCart, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+// Use namespace import to resolve missing exported member error for Link
+import * as ReactRouterDOM from 'react-router-dom';
+const { Link } = ReactRouterDOM as any;
 import { Product } from '../types';
 
 const VeidoLogo = ({ className }: { className?: string }) => (
@@ -265,7 +267,7 @@ const Home: React.FC = () => {
               <div className="w-full h-px bg-white/20" />
 
               <p className="text-center text-sm md:text-lg font-light text-gray-300 leading-relaxed max-w-xl">
-                Pour plus d'infos appelé le <span className="font-bold">+234 993 809 052</span> ou visiter un de nos store physique. Trouvez un store le plus proche de chez vous <button className="text-blue-500 underline underline-offset-4">ICI</button> 👈
+                Pour plus d'infos appelé le <span className="font-bold">+243 849 296 155</span> ou visiter un de nos store physique. Trouvez un store le plus proche de chez vous <button className="text-blue-500 underline underline-offset-4">ICI</button> 👈
               </p>
             </div>
           </div>

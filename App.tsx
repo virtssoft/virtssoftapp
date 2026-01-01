@@ -1,6 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+// Use namespace import to resolve missing exported member errors for HashRouter, Routes, and Route
+import * as ReactRouterDOM from 'react-router-dom';
+const { HashRouter, Routes, Route } = ReactRouterDOM as any;
+const Router = HashRouter;
 import Layout from './components/Layout';
 import Skeleton from './components/Skeleton';
 

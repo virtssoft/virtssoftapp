@@ -2,7 +2,9 @@
 import React from 'react';
 import { PRODUCTS } from '../constants';
 import { Search, ShoppingCart, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+// Use namespace import to resolve missing exported member error for Link
+import * as ReactRouterDOM from 'react-router-dom';
+const { Link } = ReactRouterDOM as any;
 
 const Store: React.FC = () => {
   const categories = ['Tous', 'Smartphones', 'IoT Devices', 'Accessoires', 'Power Solutions'];

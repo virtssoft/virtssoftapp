@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+// Use namespace import to resolve missing exported member errors for useParams and Link
+import * as ReactRouterDOM from 'react-router-dom';
+const { useParams, Link } = ReactRouterDOM as any;
 import { SERVICES } from '../constants';
 import { Play, Pause, Sparkles, Cpu, Zap, Share2 } from 'lucide-react';
 

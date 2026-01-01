@@ -1,19 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+// Use namespace import to resolve missing exported member errors for Link and useLocation
+import * as ReactRouterDOM from 'react-router-dom';
+const { Link, useLocation } = ReactRouterDOM as any;
 import { ShoppingBag, User, Menu, X, Linkedin, Youtube, Facebook, Instagram, ChevronDown, Globe, Search } from 'lucide-react';
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-  </svg>
-);
-
-const AbstractLogo = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="2" strokeDasharray="10 5" className="opacity-20" />
-    <path d="M30 50L50 30L70 50L50 70Z" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" />
-    <circle cx="50" cy="50" r="6" fill="currentColor" />
   </svg>
 );
 
@@ -47,11 +41,12 @@ const Header = () => {
         
         {/* [ LOGO ] */}
         <div className="flex-[1] flex justify-start items-center">
-          <Link to="/" className="flex items-center space-x-3 group outline-none">
-            <AbstractLogo className="w-8 h-8 md:w-9 md:h-9 text-white group-hover:rotate-90 transition-transform duration-700" />
-            <span className="hidden lg:block text-sm font-light tracking-[0.4em] text-white uppercase italic">
-              Virts<span className="font-bold">soft</span>
-            </span>
+          <Link to="/" className="flex items-center group outline-none">
+            <img 
+              src="/assets/images/logo.png" 
+              alt="Virtssoft Logo" 
+              className="h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105" 
+            />
           </Link>
         </div>
 
@@ -103,7 +98,7 @@ const Header = () => {
         <div className="absolute inset-0 bg-black/95 backdrop-blur-2xl" onClick={() => setIsMenuOpen(false)} />
         <div className={`absolute right-0 top-0 h-full w-full max-w-sm bg-[#0a0a0a] transition-all duration-700 p-10 flex flex-col shadow-2xl ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex justify-between items-center mb-16">
-            <AbstractLogo className="w-10 h-10 text-white" />
+            <img src="/assets/images/logo.png" alt="Logo" className="h-12 w-auto object-contain" />
             <button onClick={() => setIsMenuOpen(false)} className="text-white p-2 hover:bg-white/10 rounded-full transition-colors">
               <X size={32} strokeWidth={1} />
             </button>
