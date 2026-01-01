@@ -42,22 +42,30 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-0">
-      {/* HERO SECTION WITH YOUTUBE BG */}
-      <section className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-black">
-        {/* YouTube Background Container */}
+      {/* HERO SECTION WITH FULLSCREEN YOUTUBE BG */}
+      <section className="relative h-screen w-full flex flex-col justify-between overflow-hidden bg-black">
+        {/* Fullscreen Video Background */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <iframe
-            className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 opacity-40 scale-110"
-            src="https://www.youtube.com/embed/flIDVvABfms?autoplay=1&mute=1&loop=1&playlist=flIDVvABfms&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
-            allow="autoplay; encrypted-media"
-            frameBorder="0"
-          ></iframe>
-          {/* Gradients to blend the video */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0a0a0a]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+          <div className="relative w-full h-full">
+            <iframe
+              className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 opacity-60 scale-110"
+              style={{
+                width: '100vw',
+                height: '56.25vw', /* 100/16*9 */
+                minHeight: '100vh',
+                minWidth: '177.77vh', /* 100/9*16 */
+              }}
+              src="https://www.youtube.com/embed/flIDVvABfms?autoplay=1&mute=1&loop=1&playlist=flIDVvABfms&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&enablejsapi=1"
+              allow="autoplay; encrypted-media"
+              frameBorder="0"
+            ></iframe>
+            {/* Elegant Radial Overlay for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-40" />
+          </div>
         </div>
 
-        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-48 md:pt-32">
+        <div className="flex-grow container mx-auto px-6 z-10 flex items-center relative pt-20">
           <div className="w-full relative min-h-[60vh] md:h-[50vh]">
             {phareServices.map((phare, index) => (
               <div 
@@ -68,24 +76,28 @@ const Home: React.FC = () => {
               >
                 <div className="w-full md:w-1/2 flex justify-center">
                   <div className="relative w-full max-w-[340px] md:max-w-none aspect-square md:aspect-video animate-[float_8s_ease-in-out_infinite]">
-                    <div className="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full opacity-50" />
+                    <div className="absolute -inset-10 bg-blue-500/30 blur-[100px] rounded-full opacity-60" />
                     <img src={phare.image} alt={phare.name} className="relative z-10 w-full h-full object-cover rounded-3xl md:rounded-[48px] shadow-2xl border border-white/10" />
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 text-center md:text-left space-y-6 md:space-y-8">
                   <div className="space-y-3">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight leading-[1.1] text-white">
+                    <h1 className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1.1] text-white">
                       {phare.name}
                     </h1>
-                    <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto md:mx-0 rounded-full" />
+                    <div className="h-1.5 w-24 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mx-auto md:mx-0 rounded-full" />
                   </div>
-                  <p className="text-base md:text-xl lg:text-2xl text-gray-300/90 font-light max-w-xl mx-auto md:mx-0 leading-relaxed tracking-wide">
+                  <p className="text-lg md:text-xl lg:text-3xl text-white/80 font-light max-w-xl mx-auto md:mx-0 leading-relaxed tracking-tight">
                     {phare.shortDescription}
                   </p>
-                  <div className="pt-6 md:pt-8">
-                    <Link to={`/service/${phare.id}`} className="inline-block px-10 md:px-12 py-4 md:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] uppercase text-[11px] hover:bg-blue-500 hover:text-white transition-all duration-500 shadow-xl hover:shadow-blue-500/20">
+                  <div className="pt-6 md:pt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                    <Link to={`/service/${phare.id}`} className="inline-block px-10 py-5 bg-white text-black rounded-full font-bold tracking-tight text-sm hover:scale-105 transition-all duration-300 shadow-xl">
                       Découvrir l'innovation
                     </Link>
+                    <button className="flex items-center space-x-2 text-white/60 hover:text-white transition-colors group">
+                      <Play size={18} className="fill-white/20 group-hover:fill-white" />
+                      <span className="text-xs font-bold uppercase tracking-widest">Voir la démo</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -93,33 +105,33 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Hero Bottom Controls */}
-        <div className="container mx-auto px-6 z-10 pb-16 flex flex-col items-center space-y-10">
-          <div className="flex items-center space-x-16">
-            <button onClick={prevSlide} className="p-3 text-white/20 hover:text-white transition-all transform hover:scale-110" aria-label="Précédent">
-              <ArrowLeft size={28} strokeWidth={1} />
+        {/* Hero Bottom Navigation & Branding */}
+        <div className="container mx-auto px-6 z-10 pb-12 flex flex-col items-center space-y-8">
+          <div className="flex items-center space-x-12">
+            <button onClick={prevSlide} className="p-4 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Précédent">
+              <ArrowLeft size={32} strokeWidth={1} />
             </button>
-            <div className="flex space-x-5">
+            <div className="flex space-x-4">
               {phareServices.map((_, i) => (
                 <button 
                   key={i} 
                   onClick={() => setCurrentPhareIndex(i)} 
-                  className={`h-1 transition-all duration-700 rounded-full ${i === currentPhareIndex ? 'w-16 bg-blue-500' : 'w-4 bg-white/20 hover:bg-white/40'}`} 
-                  aria-label={`Go to slide ${i + 1}`}
+                  className={`h-1 transition-all duration-1000 rounded-full ${i === currentPhareIndex ? 'w-24 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]' : 'w-4 bg-white/10 hover:bg-white/30'}`} 
+                  aria-label={`Slide ${i + 1}`}
                 />
               ))}
             </div>
-            <button onClick={nextSlide} className="p-3 text-white/20 hover:text-white transition-all transform hover:scale-110" aria-label="Suivant">
-              <ArrowRight size={28} strokeWidth={1} />
+            <button onClick={nextSlide} className="p-4 text-white/30 hover:text-white transition-all transform hover:scale-110 active:scale-90" aria-label="Suivant">
+              <ArrowRight size={32} strokeWidth={1} />
             </button>
           </div>
-          <div className="text-[10px] uppercase tracking-[0.8em] text-gray-500 font-bold opacity-60 animate-pulse">
-            Innovons Ensemble, Inspirons l’Avenir
+          <div className="text-[11px] uppercase tracking-[1em] text-white/40 font-black animate-pulse">
+            Virtssoft technologies
           </div>
         </div>
       </section>
 
-      {/* 🧩 SECTION PRODUITS */}
+      {/* 🧩 SECTION PRODUITS - GARDÉ TEL QUEL */}
       <section className="bg-white text-black">
         {productCategories.map((category, catIdx) => {
           const catProds = PRODUCTS.filter(p => p.category === category);
@@ -215,7 +227,7 @@ const Home: React.FC = () => {
         })}
       </section>
 
-      {/* PRODUCT MODAL */}
+      {/* PRODUCT MODAL - GARDÉ TEL QUEL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedProduct(null)} />
@@ -261,7 +273,7 @@ const Home: React.FC = () => {
         </div>
       )}
 
-      {/* QUI SOMMES NOUS */}
+      {/* REST OF THE SECTIONS - GARDÉ TEL QUEL */}
       <section className="container mx-auto px-6 py-32">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           <div className="relative group">
